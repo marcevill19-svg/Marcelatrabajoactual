@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fedejohnson × AON — Informe Gerencial 2025–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#B8291B;--red-s:#F4EAE8;
+  --teal:#00707F;--teal-s:#E3F3F5;--teal-d:#005A68;
+  --navy:#1C2536;--slate:#4A5568;--muted:#8A96A3;
+  --border:#E2E8ED;--bg:#F8FAFB;--white:#FFFFFF;
+  --green:#1A7A54;--green-s:#E4F4EC;
+  --amber:#C05A00;--amber-s:#FFF3E8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif;background:#0F1623;color:var(--navy);font-size:13px;line-height:1.5}
+.app{display:flex;flex-direction:column;height:100vh}
+
+/* NAV */
+.nav{flex-shrink:0;background:#0F1623;padding:9px 20px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-brand{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-right:14px;letter-spacing:.3px}
+.nav-brand em{color:var(--teal);font-style:normal}
+.tab{padding:5px 14px;border-radius:5px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);font-family:'Inter',sans-serif;font-size:11.5px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tab:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75)}
+.tab.on{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* SLIDE */
+.slide{display:none;flex:1;min-height:0;flex-direction:column}
+.slide.on{display:flex}
+.slide-hd{flex-shrink:0;background:var(--white);border-bottom:2px solid var(--red);padding:11px 24px;display:flex;align-items:center;justify-content:space-between}
+.slide-hd h1{font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:var(--navy)}
+.slide-hd p{font-size:11px;color:var(--muted);margin-top:2px}
+.slide-num{font-family:'Outfit',sans-serif;font-size:30px;font-weight:700;color:var(--border);line-height:1}
+.slide-body{flex:1;overflow-y:auto;background:var(--bg);padding:14px 20px}
+.slide-body::-webkit-scrollbar{width:4px}
+.slide-body::-webkit-scrollbar-thumb{background:rgba(0,112,127,.2);border-radius:2px}
+
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mt8{margin-top:8px}.mt12{margin-top:12px}
+
+/* SECTION LABEL */
+.sec{font-size:10px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin:12px 0 7px}
+.sec::before,.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec.first{margin-top:0}
+
+/* CARD */
+.card{background:var(--white);border-radius:8px;border:1px solid var(--border);padding:11px 13px}
+.card-sm{background:var(--white);border-radius:7px;border:1px solid var(--border);padding:9px 11px}
+.card h3{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.card p,.body-txt{font-size:12px;color:var(--slate);line-height:1.6}
+.a-teal{border-left:3px solid var(--teal)}.a-red{border-left:3px solid var(--red)}
+.a-green{border-left:3px solid var(--green)}.a-amber{border-left:3px solid var(--amber)}
+.a-navy{border-left:3px solid var(--navy)}
+
+/* BADGE */
+.badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.b-done{background:var(--green-s);color:#0F5E3A}.b-prog{background:var(--amber-s);color:#7A3800}
+.b-test{background:var(--teal-s);color:var(--teal)}.b-new{background:var(--red-s);color:var(--red)}
+.b-act{background:#EEF0F7;color:var(--navy)}
+
+/* TIMELINE */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:15px;top:6px;bottom:6px;width:1.5px;background:var(--border)}
+.tl-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:7px;position:relative}
+.tl-dot{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:1;background:var(--white);border:1.5px solid var(--border)}
+.tl-dot.teal{background:var(--teal-s);border-color:var(--teal)}
+.tl-dot.red{background:var(--red-s);border-color:var(--red)}
+.tl-dot.green{background:var(--green-s);border-color:var(--green)}
+.tl-dot.amber{background:var(--amber-s);border-color:var(--amber)}
+.tl-dot.navy{background:#EEF0F7;border-color:var(--navy)}
+.tl-body{flex:1;min-width:0}
+
+/* CHIP */
+.chip{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--teal-s);color:var(--teal)}
+.chip.r{background:var(--red-s);color:var(--red)}.chip.g{background:var(--green-s);color:var(--green)}.chip.a{background:var(--amber-s);color:var(--amber)}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+
+/* PROGRESS */
+.pbar{height:4px;border-radius:2px;background:var(--border);overflow:hidden}
+.pf{height:100%;border-radius:2px}
+.pf-teal{background:var(--teal)}.pf-green{background:var(--green)}.pf-amber{background:var(--amber)}.pf-red{background:var(--red)}
+
+/* MONEY */
+.money{font-family:'Outfit',sans-serif;font-weight:700;background:rgba(0,112,127,.08);border:1px solid rgba(0,112,127,.2);border-radius:6px;padding:3px 10px;display:inline-block;color:var(--teal)}
+.money-red{font-family:'Outfit',sans-serif;font-weight:700;background:rgba(184,41,27,.07);border:1px solid rgba(184,41,27,.18);border-radius:6px;padding:3px 10px;display:inline-block;color:var(--red)}
+
+/* NEXT STEP */
+.ns{background:var(--white);border-radius:8px;border:1px solid var(--border);padding:11px 13px;display:flex;gap:11px;align-items:flex-start;margin-bottom:7px}
+.ns-num{width:27px;height:27px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.ns h3{font-size:12.5px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ns p{font-size:12px;color:var(--slate);line-height:1.55}
+
+/* STATUS CARD */
+.st-card{background:var(--white);border-radius:8px;border:1px solid var(--border);padding:9px 12px;margin-bottom:6px}
+.st-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.st-lbl{font-size:11.5px;font-weight:600;color:var(--navy)}
+.st-sub{font-size:10px;color:var(--muted);margin-top:3px}
+
+/* TABLE ROWS */
+.t-row{display:grid;gap:7px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start}
+.t-row:last-child{border-bottom:none}
+
+/* ZURICH KPI TABLE */
+.zr{display:grid;grid-template-columns:2fr 1fr 1fr 70px;gap:7px;font-size:11.5px;padding:6px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:center}
+.zr:last-child{border-bottom:none}
+.du{color:var(--green);font-weight:600}.dok{color:var(--teal);font-weight:600}.dw{color:var(--amber);font-weight:600}
+
+/* DETAIL PANEL */
+#dp>div{display:none}
+#dp>div.show{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+
+<nav class="nav">
+  <div class="nav-brand">FEDEJOHNSON <em>×</em> AON</div>
+  <button class="tab on"  onclick="go(1)">01 · Línea de tiempo</button>
+  <button class="tab" onclick="go(2)">02 · Operaciones</button>
+  <button class="tab" onclick="go(3)">03 · Intervenciones AON</button>
+  <button class="tab" onclick="go(4)">04 · Próximos pasos</button>
+</nav>
+
+<!-- ════════════════════════════════
+     S1 · LÍNEA DE TIEMPO
+═════════════════════════════════════ -->
+<div class="slide on" id="s1">
+  <div class="slide-hd">
+    <div><h1>Línea de tiempo — Hitos y planes de acción 2025–2026</h1><p>Evolución de las principales iniciativas del convenio Fedejohnson</p></div>
+    <div class="slide-num">01</div>
+  </div>
+  <div class="slide-body">
+    <div class="g2" style="align-items:start;gap:14px">
+
+      <!-- LEFT: TIMELINE -->
+      <div class="tl">
+        <div class="sec first">2025</div>
+
+        <div class="tl-item">
+          <div class="tl-dot amber">👥</div>
+          <div class="tl-body card a-amber" style="cursor:pointer" onclick="det('d-eq')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Equipo in-plant — Cambios 2025–2026</h3><span class="badge b-done">Estabilizado may-26</span></div>
+            <p>Dos ciclos completos de rotación. Hoy: Angélica (Bogotá) y Viviana (Cali). <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal">⚙️</div>
+          <div class="tl-body card a-teal" style="cursor:pointer" onclick="det('d-crm')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">CRM Salesforce — Parametrización y optimización</h3><span class="badge b-test">En pruebas · 81%</span></div>
+            <p>AON asume inversión total: <span class="money" style="font-size:13px;padding:2px 7px">$19.000.000</span> · 14 h aprobadas para pruebas y paso a producción. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal">🚗</div>
+          <div class="tl-body card a-teal" style="cursor:pointer" onclick="det('d-zu')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Plan de trabajo Zurich — Servicio y asistencias</h3><span class="badge b-done">Implementado</span></div>
+            <p>ANS Cali definidos, IKE, 1.000 llaveros, Alfred ampliado, comités. Indicadores 2025→2026. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot red">⭐</div>
+          <div class="tl-body card a-red" style="cursor:pointer" onclick="det('d-rs')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Plan de resarcimiento — Zurich</h3><span class="badge b-act">Protocolo activo</span></div>
+            <p>Bonos de compensación por incumplimiento. Resultados y estadísticas 2025. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot green">🔄</div>
+          <div class="tl-body card a-green" style="cursor:pointer" onclick="det('d-rv')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Renovación — Autos, salud y marketing</h3><span class="badge b-done">Sin contratiempos</span></div>
+            <p>3 aseguradoras, digital, cotizador en desarrollo, eficiencias salud 40–70%, inv. <span class="money" style="font-size:12px;padding:1px 6px">$11M</span>. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="sec">2026</div>
+
+        <div class="tl-item">
+          <div class="tl-dot navy">📋</div>
+          <div class="tl-body card a-navy" style="cursor:pointer" onclick="det('d-op')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Plan de acción — Puesta al día CRM y cobros</h3><span class="badge b-prog">En ejecución abr–jun</span></div>
+            <p>Normalización CRM, cartera, conciliación y buzón. Reporte semanal al cliente. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot green">📞</div>
+          <div class="tl-body card a-green" style="cursor:pointer" onclick="det('d-cx')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Campaña call center — Base Cexper · Jun 2026</h3><span class="badge b-new">Iniciada jun-26</span></div>
+            <p>AXA consultó vigencias; pieza + llamada a prospectos con póliza próxima a vencer. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot teal">🤝</div>
+          <div class="tl-body card a-teal" style="cursor:pointer" onclick="det('d-sac')">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <h3 style="margin:0">Plan de acompañamiento SAC — Jun 2026</h3><span class="badge b-new">Inicia jun-26</span></div>
+            <p>Relacionamiento, visitas quincenales, siniestralidad, informes y renovaciones. <span style="color:var(--teal);font-size:11px;font-weight:600">Ver detalle →</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: DETAIL PANEL -->
+      <div style="position:sticky;top:0">
+        <div id="dp" class="card" style="min-height:480px;padding:0;overflow:hidden">
+
+          <div id="d-def" class="show" style="padding:50px 24px;text-align:center;color:var(--muted)">
+            <div style="font-size:26px;margin-bottom:10px">👈</div>
+            <div style="font-size:12px;font-weight:500">Selecciona un elemento de la línea de tiempo</div>
+          </div>
+
+          <!-- EQUIPO -->
+          <div id="d-eq" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--amber-s);color:var(--amber);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">2025–2026 · In-plant</span><span class="badge b-done">Estabilizado may-26</span></div>
+            <h3 style="font-size:14px;margin-bottom:10px">Cambios en el equipo de atención</h3>
+            <div style="display:flex;flex-direction:column">
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--muted);padding:7px 8px 7px 0;border-right:2px solid var(--amber);text-align:right">Oct 2025</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--slate);border-bottom:1px solid var(--bg)">Sale <strong>Ricardo Valencia</strong> · Ingresa <strong>Juan Camilo</strong> en Cali</div>
+              </div>
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--muted);padding:7px 8px 7px 0;border-right:2px solid var(--amber);text-align:right">Dic 2025</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--slate);border-bottom:1px solid var(--bg)">Ingresa <strong>Harold Molina</strong> en Bogotá</div>
+              </div>
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--muted);padding:7px 8px 7px 0;border-right:2px solid var(--amber);text-align:right">Ene 2026</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--slate);border-bottom:1px solid var(--bg)">Se retira <strong>Harold Molina</strong> · Ingresa <strong>Angélica Ortiz</strong> en Bogotá</div>
+              </div>
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--muted);padding:7px 8px 7px 0;border-right:2px solid var(--amber);text-align:right">Feb 2026</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--slate);border-bottom:1px solid var(--bg)">Se retira <strong>Sandra Botero</strong> (Cali)</div>
+              </div>
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--muted);padding:7px 8px 7px 0;border-right:2px solid var(--amber);text-align:right">Mar 2026</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--slate);border-bottom:1px solid var(--bg)">Ingresa <strong>Viviana</strong> en Cali</div>
+              </div>
+              <div style="display:grid;grid-template-columns:85px 1fr;align-items:stretch">
+                <div style="font-size:10px;font-weight:600;color:var(--teal);padding:7px 8px 7px 0;border-right:2px solid var(--teal);text-align:right">May 2026 ✓</div>
+                <div style="padding:7px 0 7px 11px;font-size:12px;color:var(--navy);font-weight:500">Equipo estable: <strong>Angélica</strong> (Bogotá) + <strong>Viviana</strong> (Cali) · Curva finalizada</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CRM -->
+          <div id="d-crm" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--teal-s);color:var(--teal);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">CRM Salesforce</span><span class="badge b-test">En pruebas · 81%</span></div>
+            <h3 style="font-size:14px;margin-bottom:8px">Parametrización y optimización del convenio</h3>
+            <div class="pbar mb12" style="height:6px"><div class="pf pf-teal" style="width:81%"></div></div>
+            <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px">
+              <div style="text-align:center">
+                <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Inversión inicial</div>
+                <div class="money" style="font-size:16px">$15.000.000</div>
+              </div>
+              <div style="font-size:18px;color:var(--border);padding-bottom:4px">+</div>
+              <div style="text-align:center">
+                <div style="font-size:10px;color:var(--muted);margin-bottom:3px">14 h adicionales aprobadas</div>
+                <div class="money" style="font-size:16px">$4.000.000</div>
+              </div>
+              <div style="font-size:18px;color:var(--border);padding-bottom:4px">=</div>
+              <div style="text-align:center">
+                <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Inversión total AON</div>
+                <div class="money" style="font-size:24px;font-weight:700">$19.000.000</div>
+              </div>
+            </div>
+            <div style="background:var(--teal-s);border-radius:7px;padding:10px 12px;font-size:12px;color:var(--slate);line-height:1.7">
+              <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:4px">Estado actual y próximo hito</div>
+              <div>✅ 81% de parametrización ejecutada</div>
+              <div>🔵 14 horas aprobadas para pruebas finales y paso a producción</div>
+              <div>🎯 Hito: salida a entorno productivo en el próximo sprint</div>
+            </div>
+          </div>
+
+          <!-- ZURICH -->
+          <div id="d-zu" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--teal-s);color:var(--teal);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Plan Zurich</span><span class="badge b-done">Implementado</span></div>
+            <h3 style="font-size:14px;margin-bottom:9px">ANS Cali + componentes del plan</h3>
+            <div style="background:var(--teal-s);border-radius:7px;padding:9px 11px;margin-bottom:10px">
+              <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:6px">ANS de prestación de servicio en Cali</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;text-align:center">
+                <div style="background:var(--white);border-radius:5px;padding:7px"><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:var(--teal)">60 min</div><div style="font-size:10px;color:var(--muted)">Grúa</div></div>
+                <div style="background:var(--white);border-radius:5px;padding:7px"><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:var(--teal)">60 min</div><div style="font-size:10px;color:var(--muted)">Carro taller</div></div>
+                <div style="background:var(--white);border-radius:5px;padding:7px"><div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;color:var(--teal)">60 min</div><div style="font-size:10px;color:var(--muted)">Conductor elegido</div></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;font-size:12px;color:var(--slate)">
+              <div class="card-sm a-green">Cambio a <strong>IKE Asistencias</strong> — mayor cobertura y mejores tiempos</div>
+              <div class="card-sm a-teal">Línea <strong>IVR exclusiva Fedejohnson</strong> en central Zurich</div>
+              <div class="card-sm a-amber"><strong>1.000 llaveros</strong> entregados — recordación número único de asistencia</div>
+              <div class="card-sm a-teal"><strong>Alfred ampliado</strong> a Palmira y Yumbo (sumado a Cali y Bogotá)</div>
+              <div class="card-sm"><strong>Comité mensual</strong> Zurich–AON · canal directo urgencias</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:5px">Indicadores · 2025 → 2026 (fuente: tablero oficial)</div>
+            <div class="card-sm" style="padding:0;overflow:hidden">
+              <!-- header -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;background:var(--navy);font-size:9px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.4px">
+                <span>Indicador</span><span style="text-align:center">2025</span><span style="text-align:center">Ene</span><span style="text-align:center">Feb</span><span style="text-align:center">Mar</span><span style="text-align:center">Abr</span><span style="text-align:center">Meta 2026</span>
+              </div>
+              <!-- NPS Asistencias -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">NPS Asistencias</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">28%</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">56%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">100%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">71%</span>
+                <span style="text-align:center;font-size:12px;color:var(--green);font-weight:700">76%</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">77%</span>
+              </div>
+              <!-- NPS Siniestros -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center;background:var(--bg)">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">NPS Siniestros</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">47%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">100%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">100%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">100%</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">0%</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">48%</span>
+              </div>
+              <!-- NPS Alfred -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">NPS Alfred</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">40%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">100%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">75%</span>
+                <span style="text-align:center;font-size:12px;color:var(--green);font-weight:700">91%</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">63%</span>
+              </div>
+              <!-- Quejas procedentes -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center;background:var(--bg)">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Quejas procedentes</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">10</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">0</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">0</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">0</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">0</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">≤ 8</span>
+              </div>
+              <!-- Clientes -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Total clientes</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">802</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">816</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">831</span>
+                <span style="text-align:center;font-size:12px;color:var(--teal);font-weight:700">865</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+              </div>
+              <!-- Asist. prestadas -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center;background:var(--bg)">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Asistencias prestadas</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">599</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">47</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">40</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">58</span>
+                <span style="text-align:center;font-size:11px;color:var(--slate)">61</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+              </div>
+              <!-- Asist. urbanas -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Asist. urbanas (min)</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">29</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">47</span>
+                <span style="text-align:center;font-size:12px;color:var(--green);font-weight:700">43</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">≤ 60</span>
+              </div>
+              <!-- Asist. extraurbanas -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center;background:var(--bg)">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Asist. extraurb. (min)</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">—</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">118</span>
+                <span style="text-align:center;font-size:11px;color:var(--red);font-weight:600">124</span>
+                <span style="text-align:center;font-size:12px;color:var(--green);font-weight:700">109</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">≤ 120</span>
+              </div>
+              <!-- Pérdida parcial -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--bg);align-items:center">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Pérdida parcial (días)</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">26.7</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">15.5</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">22.0</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">24.7</span>
+                <span style="text-align:center;font-size:12px;color:var(--green);font-weight:700">18.2</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">≤ 23</span>
+              </div>
+              <!-- Llamadas <20s -->
+              <div style="display:grid;grid-template-columns:2fr 55px 55px 55px 55px 55px 65px;gap:4px;padding:6px 10px;align-items:center;background:var(--bg)">
+                <span style="font-size:11.5px;color:var(--navy);font-weight:500">Llamadas &lt;20 seg</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">88.3%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">89.2%</span>
+                <span style="text-align:center;font-size:11px;color:var(--green);font-weight:600">87.9%</span>
+                <span style="text-align:center;font-size:11px;color:var(--amber);font-weight:600">84.2%</span>
+                <span style="text-align:center;font-size:12px;color:var(--red);font-weight:700">75.6%</span>
+                <span style="text-align:center;font-size:11px;color:var(--muted)">≥ 85%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESARCIMIENTOS -->
+          <div id="d-rs" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px">
+              <span style="background:var(--red-s);color:var(--red);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Protocolo activo</span></div>
+            <h3 style="font-size:14px;margin-bottom:5px">Plan de resarcimiento — Incumplimiento Zurich</h3>
+            <p style="font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:10px">Cuando Zurich incumple los ANS acordados, AON activa compensación directa al asociado. Aplica para autos y hogar.</p>
+            <div class="g2" style="gap:8px">
+              <div class="card-sm" style="padding:0;overflow:hidden">
+                <div style="background:var(--teal);color:#fff;font-size:11px;font-weight:600;padding:6px 10px">🚗 Autos — Siniestros</div>
+                <div style="padding:8px 10px">
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Mala reparación 2ª vez · Negación por error · Demora &gt;30 min</span><span style="font-weight:700;color:var(--red);font-size:11.5px">Bono $100.000</span></div>
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Mala reparación 1ª vez · Demora pago +2 días</span><span style="font-weight:700;color:var(--amber);font-size:11.5px">Bono $50.000</span></div>
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Mala atención analista · Demora PQR</span><span style="font-weight:700;color:var(--teal);font-size:11.5px">Email + kit</span></div>
+                </div>
+              </div>
+              <div class="card-sm" style="padding:0;overflow:hidden">
+                <div style="background:var(--red);color:#fff;font-size:11px;font-weight:600;padding:6px 10px">🏠 Hogar &amp; Asistencias</div>
+                <div style="padding:8px 10px">
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Inconformidad definición siniestro (proc. cliente)</span><span style="font-weight:700;color:var(--red);font-size:11.5px">Bono $100.000</span></div>
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Negación asistencia · No llegada · Demora +10 min</span><span style="font-weight:700;color:var(--amber);font-size:11.5px">Bono $50.000</span></div>
+                  <div class="t-row" style="grid-template-columns:1fr 80px"><span>Mala atención analista · Demora PQR</span><span style="font-weight:700;color:var(--teal);font-size:11.5px">Email</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RENOVACION -->
+          <div id="d-rv" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--green-s);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Renovación 2025–26</span><span class="badge b-done">Sin contratiempos</span></div>
+            <h3 style="font-size:14px;margin-bottom:8px">Autos · Salud · Marketing</h3>
+
+            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">🚗 Autos — Digital · 3 aseguradoras</div>
+            <p style="font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:7px">Se incorporaron <strong>Sura y AXA</strong> (total 3 aseguradoras) para mayor respaldo en servicio y cobertura en asistencias. Oferta competitiva confirmada vs. otras agencias en los comparativos enviados.</p>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px">
+              <div style="background:var(--green-s);border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:7px 10px;font-size:12px;color:var(--slate)">
+                <span style="font-weight:700;color:var(--green)">23% de reducción tarifaria</span> para asociados con Zurich en la renovación
+              </div>
+              <div style="background:var(--teal-s);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:7px 10px;font-size:12px;color:var(--slate)">
+                <span style="font-weight:700;color:var(--teal)">Renovación 100% digital</span> · El asociado elige entre 3 aseguradoras desde la plataforma
+              </div>
+            </div>
+            <div style="background:var(--bg);border-radius:7px;padding:9px 11px;margin-bottom:10px;font-size:12px;color:var(--slate);border:1px solid var(--border)">
+              <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:3px">Cotizador digital · Pendiente conexión RUNT</div>
+              Desarrollado y listo. Salida al aire en espera de la conexión al RUNT. Inversión: <span class="money" style="font-size:13px;padding:2px 7px">$9.000.000</span>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">🏥 Salud — Eficiencias y retorno</div>
+            <p style="font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:7px">Cartas y piezas personalizadas por producto. El diferencial del convenio es claro al comparar tarifa de grupo vs. individual:</p>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px">
+              <div style="background:var(--green-s);border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:7px 10px;font-size:12px;color:var(--slate)">
+                <span style="font-weight:700;color:var(--green)">40% – 70% de ahorro</span> vs. tarifa individual según plan y rango de edad
+              </div>
+              <div style="background:var(--teal-s);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:7px 10px;font-size:12px;color:var(--slate)">
+                Retorno salud: <span style="font-weight:700;color:var(--teal)">25% → 30%</span> (en proceso de aprobación)
+              </div>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">📣 Inversión marketing renovación</div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="money" style="font-size:15px">$2.000.000</span><span style="font-size:12px;color:var(--slate)">inversión total en marketing</span></div>
+          </div>
+
+          <!-- OPS -->
+          <div id="d-op" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:#EEF0F7;color:var(--navy);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">2026 · abr–jun</span><span class="badge b-prog">En ejecución</span></div>
+            <h3 style="font-size:14px;margin-bottom:9px">Plan puesta al día — CRM, cartera y cobros</h3>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="display:grid;grid-template-columns:75px 1fr;gap:7px;align-items:start"><div style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;text-align:center">Sem. 1–2</div><div style="font-size:12px;color:var(--slate)">Cierre casos ene–feb CRM · Reunión cartera aseguradoras · Jornada FDS 23–24 abr</div></div>
+              <div style="display:grid;grid-template-columns:75px 1fr;gap:7px;align-items:start"><div style="background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;text-align:center">Sem. 3</div><div style="font-size:12px;color:var(--slate)">Barrido total CRM · Reporte cartera · Envío cobros 100%</div></div>
+              <div style="display:grid;grid-template-columns:75px 1fr;gap:7px;align-items:start"><div style="background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;text-align:center">Sem. 4–5</div><div style="font-size:12px;color:var(--slate)">ANS de respuesta garantizado · Cartera 100% al día</div></div>
+              <div style="display:grid;grid-template-columns:75px 1fr;gap:7px;align-items:start"><div style="background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;text-align:center">Sem. 6</div><div style="font-size:12px;color:var(--slate)">Producción pendiente de facturar · Ingresos visibles jun 2026</div></div>
+            </div>
+          </div>
+
+          <!-- CEXPER -->
+          <div id="d-cx" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--green-s);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Jun 2026 · Comercial</span><span class="badge b-new">Iniciada</span></div>
+            <h3 style="font-size:14px;margin-bottom:7px">Campaña call center — Base Cexper (AXA Colpatria)</h3>
+            <p style="font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:9px">AXA Colpatria consultó las <strong>vigencias de los vehículos</strong> de asociados Fedejohnson. Con esos prospectos se llama a quienes tienen vehículo con póliza próxima a vencer y <strong>no están en el convenio.</strong></p>
+            <div style="background:var(--green-s);border-radius:7px;padding:9px 11px;font-size:12px;color:var(--slate);line-height:1.7">
+              <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">Mecánica</div>
+              <div>📧 Se envía pieza de comunicación personalizada</div>
+              <div>📞 De forma alterna se realiza el contacto telefónico</div>
+              <div>🎯 Iniciada en junio 2026</div>
+            </div>
+          </div>
+
+          <!-- SAC -->
+          <div id="d-sac" style="padding:16px;overflow-y:auto;max-height:570px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+              <span style="background:var(--teal-s);color:var(--teal);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Jun 2026 · SAC</span><span class="badge b-new">Inicia jun-26</span></div>
+            <h3 style="font-size:14px;margin-bottom:9px">Plan de acompañamiento SAC</h3>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div class="card-sm a-teal"><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:2px">Relacionamiento · Semanal</div><div style="font-size:12px;color:var(--slate)">Comunicación constante con equipo directo de Piedad — Equipo SAC</div></div>
+              <div class="card-sm a-teal"><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:2px">Visitas periódicas Fedejohnson · Quincenal por Directora</div><div style="font-size:12px;color:var(--slate)">Validación de servicio, necesidades y oportunidades de mejora</div></div>
+              <div class="card-sm a-teal"><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:2px">Medición siniestralidad · Trimestral</div><div style="font-size:12px;color:var(--slate)">Análisis de comportamiento de pólizas — Director de Servicio</div></div>
+              <div class="card-sm a-teal"><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:2px">Elaboración de informes · Trimestral</div><div style="font-size:12px;color:var(--slate)">Reportes de gestión y operación — Equipo SAC / DCS</div></div>
+              <div class="card-sm a-teal"><div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:2px">Renovaciones de pólizas · Anual / según vigencia</div><div style="font-size:12px;color:var(--slate)">Gestión integral del proceso — Equipo SAC</div></div>
+            </div>
+          </div>
+
+        </div><!-- end dp -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     S2 · OPERACIONES
+═════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="slide-hd">
+    <div><h1>Operaciones — Plan de acción cobros y gestión de quejas</h1><p>Auditoría · Automatización · Nuevo modelo de equipo · Quejas 2026</p></div>
+    <div class="slide-num">02</div>
+  </div>
+  <div class="slide-body">
+    <div class="g2" style="align-items:start;gap:14px">
+
+      <!-- LEFT -->
+      <div>
+        <div class="sec first">Plan de acción cobros — Auditoría y automatización</div>
+        <div class="card mb8" style="background:var(--navy);border-color:var(--navy);padding:11px 13px">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;letter-spacing:.5px">Contexto · Por qué este plan</div>
+          <div style="font-size:12px;color:#fff;line-height:1.6">Se han presentado <strong style="color:rgba(255,255,255,.85)">reprocesos, errores y omisiones en las entregas de cobros</strong>, generando malestar con el cliente. El objetivo es estabilizar y automatizar el proceso.</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+          <div class="card a-teal" style="padding:9px 12px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+              <div style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+              <div style="font-size:12px;font-weight:600;color:var(--navy)">Auditoría de cobros — Iniciada hoy · entregable jue 25 jun</div>
+            </div>
+            <div style="font-size:12px;color:var(--slate);line-height:1.55;padding-left:27px">Revisión de todos los cobros desde la renovación. Entregable: <strong>archivo consolidado por compañía</strong> con cobros de la vigencia, casos con variación, cuántos están gestionados y cuántos pendientes.</div>
+          </div>
+          <div class="card a-teal" style="padding:9px 12px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+              <div style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+              <div style="font-size:12px;font-weight:600;color:var(--navy)">Bot de conciliación automatizado — En desarrollo</div>
+            </div>
+            <div style="font-size:12px;color:var(--slate);line-height:1.55;padding-left:27px">Procesará el cobro de la aseguradora, lo comparará con el mes anterior e identificará diferencias automáticamente. <em style="color:var(--muted)">No hay entregable de demo disponible aún.</em></div>
+          </div>
+          <div class="card a-teal" style="padding:9px 12px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+              <div style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+              <div style="font-size:12px;font-weight:600;color:var(--navy)">Nuevo modelo operativo — Sin recurso adicional</div>
+            </div>
+            <div style="font-size:12px;color:var(--slate);line-height:1.55;padding-left:27px"><strong>Viviana (Cali):</strong> dedicación exclusiva a operaciones (cobros, conciliaciones, cartera), con apoyo comercial 1 semana/mes. <strong>Angélica (Bogotá):</strong> gestión comercial integral.</div>
+          </div>
+        </div>
+
+        <div class="card mb8" style="background:var(--teal-s);border-color:var(--teal);padding:9px 13px">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:5px">KPIs de éxito</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11.5px;color:var(--slate)">
+            <div>✅ Cumplimiento cronograma ≥ 95%</div>
+            <div>✅ Reducción de reprocesos ≥ 80%</div>
+            <div>✅ Variación mensual en cobros <strong>≤ 2%</strong></div>
+            <div>✅ Status semanal compartido con el cliente</div>
+          </div>
+        </div>
+
+        <div class="sec">Gobierno y seguimiento</div>
+        <div class="card" style="padding:10px 13px;font-size:12px;color:var(--slate);line-height:1.7">
+          <div>📋 <strong>Semanal:</strong> avance del bot · hitos · entregables parciales</div>
+          <div>📊 <strong>Mensual:</strong> calidad de cobros · variaciones · KPIs</div>
+          <div>👥 Romina Pons · seguimiento diario · Sergio Rodríguez · 2 revisiones semanales de doble control</div>
+          <div>📨 <strong>Status semanal al cliente</strong> para mantener visibilidad y tranquilidad</div>
+        </div>
+
+        <div class="sec">Datos comerciales vigentes</div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="background:var(--navy);padding:8px 13px;font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;display:grid;grid-template-columns:1fr 60px 60px 60px;gap:8px">
+            <span>Ramo</span><span style="text-align:center">Vigentes</span><span style="text-align:center">Ventas</span><span style="text-align:center">Cancelac.</span>
+          </div>
+          <div style="padding:8px 13px;display:grid;grid-template-columns:1fr 60px 60px 60px;gap:8px;font-size:12px;border-bottom:1px solid var(--bg);align-items:center">
+            <span style="color:var(--navy);font-weight:500">🚗 Autos</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+          </div>
+          <div style="padding:8px 13px;display:grid;grid-template-columns:1fr 60px 60px 60px;gap:8px;font-size:12px;border-bottom:1px solid var(--bg);align-items:center;background:var(--bg)">
+            <span style="color:var(--navy);font-weight:500">🏥 Salud</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+          </div>
+          <div style="padding:8px 13px;display:grid;grid-template-columns:1fr 60px 60px 60px;gap:8px;font-size:12px;border-bottom:1px solid var(--bg);align-items:center">
+            <span style="color:var(--navy);font-weight:500">🏠 Hogar</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+          </div>
+          <div style="padding:8px 13px;display:grid;grid-template-columns:1fr 60px 60px 60px;gap:8px;font-size:12px;align-items:center;background:var(--bg)">
+            <span style="color:var(--navy);font-weight:500">🐾 Mascotas</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+            <span style="text-align:center;color:var(--muted);font-style:italic">—</span>
+          </div>
+          <div style="padding:7px 13px;font-size:10px;color:var(--muted);font-style:italic;text-align:center;border-top:1px solid var(--border)">
+            Datos en proceso de consolidación · Próxima actualización
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: quejas primero -->
+      <div>
+        <div class="sec first">Quejas 2026 — Segmentadas por tipo</div>
+
+        <div class="card-sm mb8" style="background:var(--red-s);border-color:var(--red);padding:9px 12px">
+          <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:3px">Tipo A · Quejas de asociados</div>
+          <div style="font-size:11.5px;color:var(--slate)">Demoras en respuesta AON · Errores propios · Errores de la compañía de seguros</div>
+        </div>
+        <div class="card mb10" style="padding:9px 13px">
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);padding-bottom:5px;border-bottom:1px solid var(--border)">#<span>Resp.</span><span>Caso</span><span>Solución</span></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">1</div><div><span style="background:var(--teal-s);color:var(--teal);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">AON N/P</span></div><div>Palacio — variación cobro Colmédica</div><div>Valor confirmado sin variación</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">4</div><div><span style="background:var(--teal-s);color:var(--teal);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">Zurich</span></div><div>Demora emisiones · ANS incumplido</div><div>Escalado gerencia · ANS solicitado</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">5</div><div><span style="background:var(--teal-s);color:var(--teal);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">Zurich</span></div><div>Documentos adicionales vehículo reemplazo</div><div>Validado · servicio prestado</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">6</div><div><span style="background:var(--teal-s);color:var(--teal);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">Metlife</span></div><div>Demora emisiones por cambio equipo</div><div>Emisiones logradas</div></div>
+        </div>
+
+        <div class="card-sm mb8" style="background:var(--amber-s);border-color:var(--amber);padding:9px 12px">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:3px">Tipo B · Errores operativos internos</div>
+          <div style="font-size:11.5px;color:var(--slate)">Omisiones y errores en conciliación, cobros, facturación y cartera</div>
+        </div>
+        <div class="card mb8" style="padding:9px 13px">
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);padding-bottom:5px;border-bottom:1px solid var(--border)">#<span>Resp.</span><span>Caso</span><span>Solución</span></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">2</div><div><span style="background:var(--red-s);color:var(--red);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">AON Proc.</span></div><div>Cobro hogar a inmueble incorrecto en renovación</div><div>Recruzada · base ajustada enviada</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">3</div><div><span style="background:var(--red-s);color:var(--red);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">AON Proc.</span></div><div>Solo 1 de 2 pólizas de hogar renovada</div><div>Reactivada · verificación completa</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;border-bottom:1px solid var(--bg);color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">7</div><div><span style="background:var(--red-s);color:var(--red);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">AON N/P</span></div><div>No envío cobro Colsanitas mayo</div><div>Enviada relación con tarifa correcta</div></div>
+          <div style="display:grid;grid-template-columns:20px 72px 1fr 1fr;gap:6px;font-size:11.5px;padding:5px 0;color:var(--slate);align-items:start"><div style="font-weight:700;color:var(--muted);text-align:center">8</div><div><span style="background:var(--red-s);color:var(--red);font-size:9px;font-weight:600;padding:1px 5px;border-radius:6px">AON Proc.</span></div><div>Ajuste novedades reportadas en correos</div><div>Todos los puntos aclarados</div></div>
+        </div>
+
+        <div class="card-sm" style="background:var(--bg);border-color:var(--border);font-size:11.5px;color:var(--muted);font-style:italic;text-align:center;padding:10px">
+          Segmentación cuantitativa por tipo · Dato en proceso de consolidación
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     S3 · INTERVENCIONES AON
+═════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="slide-hd">
+    <div><h1>Intervenciones AON a favor de Fedejohnson</h1><p>Gestión activa del intermediario para proteger los intereses del convenio y sus asociados</p></div>
+    <div class="slide-num">03</div>
+  </div>
+  <div class="slide-body">
+
+    <div class="sec first">2025 — Pago comercial negociado</div>
+    <div class="card mb12 a-green" style="padding:13px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:3px">Pago comercial negociado · Autos, Hogar y Mascotas (casos sin cobertura)</div><div class="money" style="font-size:22px">$8.560.000</div></div>
+      <div style="font-size:12px;color:var(--slate);flex:1;min-width:180px;line-height:1.6">AON negoció con las aseguradoras el pago de casos que merecían compensación comercial, aunque no tuvieran cobertura formal.</div>
+    </div>
+
+    <div class="sec">2026 — Salud</div>
+    <div class="card mb12 a-teal" style="padding:15px 17px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="background:var(--teal-s);color:var(--teal);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Colsanitas · Error sistémico</span></div>
+      <h3 style="font-size:13.5px;margin-bottom:6px">Cobros incorrectos en 29 asociados (39 usuarios incluidos)</h3>
+      <div class="g2" style="gap:12px;align-items:start">
+        <div>
+          <p style="font-size:12px;color:var(--slate);line-height:1.65;margin-bottom:9px">Colsanitas hizo un ajuste en su sistema que <strong>retiró la marcación de bolsa</strong> a usuarios, generando cobros incorrectos en feb, mar y abr 2026. Los 39 usuarios afectados estaban en <strong>29 asociados</strong>, base del plan de marcación y llamadas.</p>
+          <div style="background:var(--teal-s);border-radius:7px;padding:9px 11px;font-size:12px;color:var(--slate);line-height:1.7">
+            <div style="font-size:11px;font-weight:700;color:var(--teal);margin-bottom:4px">Gestión AON — Resultados</div>
+            <div>✅ <strong>$70.000.000</strong> negociados con Colsanitas — valores que <strong>no se cobrarán</strong> a los asociados en retroactivos</div>
+            <div>✅ Desde mayo 2026 cobro correcto para cada afiliado</div>
+            <div>✅ Campaña de llamadas a los <strong>29 asociados</strong> con explicación detallada</div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:12px">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px">Valor no cobrado a asociados</div>
+          <div class="money-red" style="font-size:26px;display:block;text-align:center">$70.000.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">negociado por AON con Colsanitas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">2026 — Autos</div>
+    <div class="card a-green" style="padding:15px 17px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px"><span style="background:var(--green-s);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px">Zurich · Siniestro autos · Harold Stiven Gómez</span></div>
+      <h3 style="font-size:13.5px;margin-bottom:6px">Pérdida total recuperada por Policía — indemnización completa negociada</h3>
+      <div class="g2" style="gap:12px;align-items:start">
+        <div>
+          <p style="font-size:12px;color:var(--slate);line-height:1.65;margin-bottom:9px">Vehículo declarado pérdida total. La Policía lo <strong>recuperó antes de la liquidación</strong>, lo que llevó a Zurich a querer revertir y devolver el carro. AON intervino activamente y logró un <strong>acuerdo comercial</strong> para el pago de la indemnización completa.</p>
+          <div style="background:var(--green-s);border-radius:7px;padding:9px 11px;font-size:12px;color:var(--slate);line-height:1.7">
+            <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:4px">Resultado</div>
+            <div>✅ Zurich paga la indemnización completa por pérdida total</div>
+            <div>✅ Asociado recibe su indemnización a pesar de la recuperación</div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:12px">
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px">Indemnización obtenida</div>
+          <div class="money" style="font-size:26px;display:block;text-align:center">$60.000.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">pagados al asociado por Zurich</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     S4 · PRÓXIMOS PASOS
+═════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="slide-hd">
+    <div><h1>Próximos pasos y planes de trabajo</h1><p>Acciones en curso y pendientes · Junio 2026 en adelante</p></div>
+    <div class="slide-num">04</div>
+  </div>
+  <div class="slide-body">
+    <div class="g2" style="align-items:start;gap:14px">
+      <div>
+        <div class="sec first">Operaciones y CRM</div>
+        <div class="ns"><div class="ns-num" style="background:var(--teal)">1</div><div><h3>Plan de acción cobros — En ejecución</h3><p>Auditoría iniciada · entregable 25 jun. Bot de conciliación en paralelo. Status semanal al cliente.</p><div class="chips"><span class="chip">Auditoría al 25 jun</span><span class="chip">Variación ≤2%</span><span class="chip">Status semanal</span></div></div></div>
+        <div class="ns"><div class="ns-num" style="background:var(--red)">2</div><div><h3>Plan de acción SAC — Inicia junio 2026</h3><p>Formalización en junio. Muchas actividades ya están en curso: relacionamiento semanal con Piedad, visitas quincenales por Directora, medición siniestralidad trimestral.</p><div class="chips"><span class="chip r">Formalización: jun-26</span><span class="chip r">Actividades en curso</span></div></div></div>
+        <div class="ns"><div class="ns-num" style="background:var(--green)">3</div><div><h3>Salida a producción CRM Salesforce</h3><p>Restan <strong>14 horas aprobadas</strong> de pruebas antes del paso a productivo. Inversión total AON: <span class="money" style="font-size:12px;padding:1px 6px">$19.000.000</span>.</p><div class="chips"><span class="chip g">81% ejecutado</span><span class="chip g">14 h pendientes</span><span class="chip g">Próximo sprint</span></div></div></div>
+
+        <div class="sec">Estado general</div>
+        <div class="st-card"><div class="st-hd"><div class="st-lbl">CRM Salesforce</div><span class="badge b-test">En pruebas</span></div><div class="pbar" style="height:4px"><div class="pf pf-teal" style="width:81%"></div></div><div class="st-sub">81% · 14 h pendientes → producción · Inversión AON $19M</div></div>
+        <div class="st-card"><div class="st-hd"><div class="st-lbl">Plan cobros + auditoría</div><span class="badge b-prog">En ejecución</span></div><div class="pbar" style="height:4px"><div class="pf pf-amber" style="width:15%"></div></div><div class="st-sub">Auditoría iniciada · entregable 25 jun · bot en desarrollo</div></div>
+        <div class="st-card"><div class="st-hd"><div class="st-lbl">Plan SAC</div><span class="badge b-new">Inicia jun</span></div><div class="pbar" style="height:4px"><div class="pf pf-teal" style="width:20%"></div></div><div class="st-sub">Actividades en curso · formalización junio 2026</div></div>
+        <div class="st-card"><div class="st-hd"><div class="st-lbl">Equipo in-plant</div><span class="badge b-done">Estabilizado</span></div><div class="pbar" style="height:4px"><div class="pf pf-green" style="width:100%"></div></div><div class="st-sub">Curva finalizada may-26 · Angélica (Bogotá) + Viviana (Cali)</div></div>
+        <div class="st-card"><div class="st-hd"><div class="st-lbl">Asistencias Zurich</div><span class="badge b-done">Meta superada</span></div><div class="pbar" style="height:4px"><div class="pf pf-green" style="width:98%"></div></div><div class="st-sub">NPS 76% · Quejas asistencia 0 (mar–abr 2026)</div></div>
+      </div>
+
+      <div>
+        <div class="sec first">Reactivación comercial</div>
+        <div class="ns"><div class="ns-num" style="background:var(--amber)">1</div><div><h3>Puesta en marcha cotizador de autos</h3><p>Desarrollado. Pendiente <strong>conexión al RUNT</strong>. Una vez habilitada, salida al aire. Inversión ya ejecutada: $9.000.000.</p><div class="chips"><span class="chip a">Pendiente: conexión RUNT</span></div></div></div>
+        <div class="ns"><div class="ns-num" style="background:var(--teal)">2</div><div><h3>Reactivación envíos de comunicaciones</h3><p>Cronograma por producto por mes. Piezas segmentadas y personalizadas por tipo de póliza.</p><div class="chips"><span class="chip">Por producto · Por mes</span><span class="chip">En definición</span></div></div></div>
+        <div class="ns"><div class="ns-num" style="background:var(--navy)">3</div><div><h3>Autorización ingreso aseguradoras a sedes</h3><p>Gestionar con Fedejohnson el acceso de representantes de las aseguradoras para activaciones presenciales.</p><div class="chips"><span class="chip">Pendiente autorización Fedejohnson</span></div></div></div>
+        <div class="ns"><div class="ns-num" style="background:var(--green)">4</div><div><h3>Continuar campaña call center Cexper</h3><p>Iniciada en junio 2026. Pieza + llamada a asociados con vehículo fuera del convenio y póliza próxima a vencer. Continuar y escalar.</p><div class="chips"><span class="chip g">En curso jun-26</span><span class="chip g">AXA Colpatria</span></div></div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function go(n){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('s'+n).classList.add('on');
+  document.querySelectorAll('.tab')[n-1].classList.add('on');
+}
+function det(id){
+  document.querySelectorAll('#dp>div').forEach(d=>d.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+}
+</script>
+</body>
+</html>
